@@ -46,11 +46,18 @@
                                 <img src="{{asset('admin/images/icon/logo.png')}}" alt="CoolAdmin">
                             </a>
                         </div>
+                        <!--  error msg -->
+                        @if(Session::has('login_err'))
+                        <div class="alert alert-warning">
+                        {{Session::get('login_err')}}
+                        </div>
+                        @endif
                         <div class="login-form">
-                            <form action="" method="post">
+                            <form action="{{Route('admin.auth')}}" method="post">
+                                @csrf
                                 <div class="form-group">
                                     <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <input class="au-input au-input--full" type="text" name="email" placeholder="Email" value="{{old('email')}}" >
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
