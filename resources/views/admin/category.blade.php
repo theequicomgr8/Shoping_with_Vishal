@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 @section('heading','Category')
 @section('content')
-
+<button data-toggle="modal" data-target="#myModal" class="btn btn-info" style="float:right;">Add Category</button>
 <table class="table table-bordered" id="posts">
 <thead>
     <tr>
@@ -14,6 +14,9 @@
 <tbody></tbody>
 </table> 
 
+
+
+@endsection
 <!-- modal -->
 <div class="modal" id="myModal">
   <div class="modal-dialog">
@@ -27,7 +30,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form id="archive_form">
+        <form id="category-form" method="post" action="{{Route('admin.add.category')}}">
             @csrf
             <div class="form-group">
                 <label>Category Name : </label>
@@ -35,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label>Category Slug : </label>
-                <input type="text" name="category_slug" id="category_slug" class="form-control" required>
+                <input type="text" name="category_slug" id="category_name" class="form-control" required>
             </div>
             <input type="submit" class="btn btn-success">
         </form>
@@ -49,9 +52,6 @@
     </div>
   </div>
 </div>
-
-@endsection
-
 @section('script')
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>

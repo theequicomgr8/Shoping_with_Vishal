@@ -76,7 +76,15 @@ class CategoryController extends Controller
     }
 
 
-    public function add(){
-        // return view()
+    public function add(Request $request){
+        $data=new Category;
+        $data->category_name=$request->input('category_name');
+        $data->category_slug=$request->input('category_slug');
+        $data=$data->save();
+        if($data){
+            return back()->with('msg',"Category Save Successfully");
+        }else{
+            return back()->with('msg',"Some Error");
+        }
     }
 }
