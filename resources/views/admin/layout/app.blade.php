@@ -112,9 +112,23 @@
                             <a href="{{Route('admin.dashboard')}}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li>
+                        <li class="@yield('category')">
                             <a href="{{Route('admin.category')}}">
                                 <i class="fas fa-chart-bar"></i>Category</a>
+                        </li>
+
+                        <li class="@yield('size')">
+                            <a href="{{Route('admin.size')}}">
+                                <i class="fas fa-chart-bar"></i>Size</a>
+                        </li>
+                        <li class="@yield('color')">
+                            <a href="{{Route('admin.color')}}">
+                                <i class="fas fa-chart-bar"></i>Color</a>
+                        </li>
+
+                        <li class="@yield('product')">
+                            <a href="{{Route('admin.product')}}">
+                                <i class="fas fa-chart-bar"></i>Product</a>
                         </li>
                         
                     </ul>

@@ -1,14 +1,13 @@
 @extends('admin.layout.app')
-@section('heading','Category')
-@section('category','active')
+@section('heading','CategColorory')
+@section('color','active')
 @section('content')
-<button data-toggle="modal" data-target="#myModal" class="btn btn-info" style="float:right;">Add Category</button>
+<button data-toggle="modal" data-target="#myModal" class="btn btn-info" style="float:right;">Add Color</button>
 <table class="table table-bordered" id="posts">
 <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Slug</th>
+        <th>Color</th>
         <th>Action</th>
     </tr>
 </thead>
@@ -25,21 +24,17 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Add Category</h4>
+        <h4 class="modal-title">Add Color</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form id="category-form" method="post" action="{{Route('admin.add.category')}}">
+        <form id="category-form" method="post" action="{{Route('admin.add.color')}}">
             @csrf
             <div class="form-group">
-                <label>Category Name : </label>
-                <input type="text" name="category_name" id="category_name" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Category Slug : </label>
-                <input type="text" name="category_slug" id="category_name" class="form-control" required>
+                <label>Color : </label>
+                <input type="text" name="color_name" id="color_name" class="form-control" required>
             </div>
             <input type="submit" class="btn btn-success">
         </form>
@@ -62,15 +57,14 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('admin/category') }}",
+                     "url": "{{ url('admin/color') }}",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "{{csrf_token()}}"}
                    },
             "columns": [
                 { "data": "id" },
-                { "data": "name" },
-                { "data": "slug" },
+                { "data": "color_name" },
 				{ "data": "options" }
             ]	 
 
