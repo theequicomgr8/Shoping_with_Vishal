@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Size;
+use App\Models\Color;
+use DB;
 class ProductController extends Controller
 {
     public function index(){
@@ -83,7 +86,9 @@ class ProductController extends Controller
 
     public function productForm(){
         $categories=Category::where('status','1')->get();
-        return view('admin.product-form',compact('categories'));
+        $sizes=Size::where('status','1')->get();
+        $colors=Color::where('status','1')->get();
+        return view('admin.product-form',compact('categories','sizes','colors'));
     }
 
 
@@ -124,7 +129,29 @@ class ProductController extends Controller
         $data->warranty=$warranty;
         $data->image=$image;
         $data->category_id=$category_id;
-        $data=$data->save();
+        $data->save();
+        $product_id=$data->id;
+        
+        foreach($request->input('sku') as $key => $value){
+
+            if($request->has('attr_image')){
+                $file=$request->file('attr_image')[$key];
+                $attr_image=time().'-'.$file->getClientOriginalName();
+                $file->move(public_path('product'),$attr_image);
+            }
+            $data=DB::table('productattrs')->insert([
+                "sku"=> $request->input('sku')[$key],
+                "product_id"=> $product_id,
+                "image"=> $attr_image,
+                "mrp"=> $request->input('mrp')[$key],
+                "price"=> $request->input('price')[$key],
+                "qty"=> $request->input('qty')[$key],
+                "size_id"=> $request->input('size_id')[$key],
+                "color_id"=> $request->input('color_id')[$key],
+
+            ]);
+        }
+
         if($data){
             return back()->with('msg',"Product Save");
         }else{
